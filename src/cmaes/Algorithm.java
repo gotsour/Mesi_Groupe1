@@ -13,7 +13,9 @@ import java.util.Map;
  */ 
 public abstract class Algorithm implements Serializable {
    
-  /**
+	private static final long serialVersionUID = 1L;
+
+/**
    * Stores the problem to solve
    */
   protected Problem problem_;        

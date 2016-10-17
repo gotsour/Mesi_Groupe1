@@ -5,7 +5,10 @@ import java.io.Serializable;
 /**
  * Class representing a solution for a problem.
  */
-public class Solution implements Serializable {  
+public class Solution implements Serializable { 
+	
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Stores the problem 
 	 */

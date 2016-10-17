@@ -7,6 +7,8 @@ import java.util.BitSet;
  */
 public class BinaryReal extends Binary {
 	
+	private static final long serialVersionUID = 1L;
+	
 	/**
    * Defines the default number of bits used for binary coded variables.
    */	

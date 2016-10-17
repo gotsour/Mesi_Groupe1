@@ -4,6 +4,8 @@ package cmaes;
  * This class implements a Real value decision variable
  */
 public class Real extends Variable{
+	
+	private static final long serialVersionUID = 1L;
 
   /**
    * Stores the value of the real variable

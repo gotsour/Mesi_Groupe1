@@ -15,6 +15,8 @@ import java.util.List;
  * Class representing a SolutionSet (a set of solutions)
  */
 public class SolutionSet implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
     
   /**
    * Stores a list of <code>solution</code> objects.
@@ -86,7 +88,7 @@ public class SolutionSet implements Serializable {
    * Sorts a SolutionSet using a <code>Comparator</code>.
    * @param comparator <code>Comparator</code> used to sort.
    */
-  public void sort(Comparator comparator){
+  public void sort(Comparator<Solution> comparator){
     if (comparator == null) {
       Configuration.logger_.severe("No criterium for compare exist");
       return ;
@@ -102,7 +104,7 @@ public class SolutionSet implements Serializable {
    * @return The index of the best Solution attending to the comparator or 
    * <code>-1<code> if the SolutionSet is empty
    */
-  public int indexBest(Comparator comparator){
+  public int indexBest(Comparator<Solution> comparator){
     
    
     if ((solutionsList_ == null) || (this.solutionsList_.isEmpty())) {
@@ -133,7 +135,7 @@ public class SolutionSet implements Serializable {
    * @return The best Solution attending to the comparator or <code>null<code>
    * if the SolutionSet is empty
    */
-  public Solution best(Comparator comparator){
+  public Solution best(Comparator<Solution> comparator){
     int indexBest = indexBest(comparator);
     if (indexBest < 0) {
         return null;
@@ -151,7 +153,7 @@ public class SolutionSet implements Serializable {
    * @return The index of the worst Solution attending to the comparator or 
    * <code>-1<code> if the SolutionSet is empty
    */
-  public int indexWorst(Comparator comparator){
+  public int indexWorst(Comparator<Solution> comparator){
     
    
     if ((solutionsList_ == null) || (this.solutionsList_.isEmpty())) {
@@ -181,7 +183,7 @@ public class SolutionSet implements Serializable {
    * @return The worst Solution attending to the comparator or <code>null<code>
    * if the SolutionSet is empty
    */
-  public Solution worst(Comparator comparator){
+  public Solution worst(Comparator<Solution> comparator){
     
     int index = indexWorst(comparator);
     if (index < 0) {

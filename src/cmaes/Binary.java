@@ -9,7 +9,9 @@ import java.util.BitSet;
  */ 
 public class Binary extends Variable {
   
-  /**
+	private static final long serialVersionUID = 1L;
+
+/**
    * Stores the bits constituting the binary string. It is
    * implemented using a BitSet object
    */

@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Abstract class representing a multiobjective optimization problem
  */
 public abstract class Problem implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
   /**
    * Defines the default precision of binary-coded variables

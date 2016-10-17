@@ -8,6 +8,8 @@ import java.util.Map;
  * Class representing an operator
  */
 public abstract class Operator implements Serializable {
+
+	private static final long serialVersionUID = 1L;
    
   /**
    * Stores the current operator parameters. 

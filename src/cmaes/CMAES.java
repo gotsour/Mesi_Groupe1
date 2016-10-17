@@ -7,6 +7,8 @@ import java.util.Random;
  * This class implements the CMA-ES algorithm
  */
 public class CMAES extends Algorithm {
+	
+	private static final long serialVersionUID = 1L;
 
   /**
    * Stores the population size
@@ -373,7 +375,7 @@ public class CMAES extends Algorithm {
     //Initialize the variables
     counteval = 0;
 
-    Comparator comparator = new ObjectiveComparator(0);
+    Comparator<Solution> comparator = new ObjectiveComparator(0);
 
     init();
 

@@ -4,6 +4,9 @@ package cmaes;
  * Class representing a Sphere problem.
  */
 public class Sphere extends Problem {
+	
+	private static final long serialVersionUID = 1L;
+	
   /** 
    * Constructor
    * Creates a default instance of the Sphere problem

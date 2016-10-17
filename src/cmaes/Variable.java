@@ -12,6 +12,8 @@ import java.io.Serializable;
  * For this reason, they are defined by default as giving a fatal error.
  */
 public abstract class Variable implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
   //private VariableType_ type_;
 
@@ -32,7 +34,7 @@ public abstract class Variable implements Serializable {
  * @throws Exception 
    */
   public double getValue() throws Exception {
-    Class cls = java.lang.String.class;
+    Class<String> cls = java.lang.String.class;
     String name = cls.getName(); 
     Configuration.logger_.severe("Class " + name + " does not implement " +
         "method getValue");
@@ -48,7 +50,7 @@ public abstract class Variable implements Serializable {
  * @throws Exception 
   */
   public void setValue(double value) throws Exception {
-    Class cls = java.lang.String.class;
+    Class<String> cls = java.lang.String.class;
     String name = cls.getName(); 
     Configuration.logger_.severe("Class " + name + " does not implement " +
         "method setValue");
@@ -64,7 +66,7 @@ public abstract class Variable implements Serializable {
  * @throws Exception 
    */
   public double getLowerBound() throws Exception { 
-    Class cls = java.lang.String.class;
+    Class<String> cls = java.lang.String.class;
     String name = cls.getName(); 
     Configuration.logger_.severe("Class " + name + 
                        " does not implement method getLowerBound()");
@@ -79,7 +81,7 @@ public abstract class Variable implements Serializable {
  * @throws Exception 
    */
   public double getUpperBound() throws Exception {
-    Class cls = java.lang.String.class;
+    Class<String> cls = java.lang.String.class;
     String name = cls.getName(); 
     Configuration.logger_.severe("Class " + name + 
                        " does not implement method getUpperBound()");
@@ -94,7 +96,7 @@ public abstract class Variable implements Serializable {
  * @throws Exception 
    */
   public void setLowerBound(double lowerBound) throws Exception {
-    Class cls = java.lang.String.class;
+    Class<String> cls = java.lang.String.class;
     String name = cls.getName(); 
     Configuration.logger_.severe("Class " + name + 
                        " does not implement method setLowerBound()");
@@ -109,7 +111,7 @@ public abstract class Variable implements Serializable {
  * @throws Exception 
    */
   public void setUpperBound(double upperBound) throws Exception {
-    Class cls = java.lang.String.class;
+    Class<String> cls = java.lang.String.class;
     String name = cls.getName(); 
     Configuration.logger_.severe("Class " + name + 
                        " does not implement method setUpperBound()");
@@ -129,7 +131,7 @@ public abstract class Variable implements Serializable {
    * @return The type of the variable
    */
   
-  public Class getVariableType() {
+  public Class<? extends Variable> getVariableType() {
     return this.getClass() ;
   } // getVariableType
 } // Variable
