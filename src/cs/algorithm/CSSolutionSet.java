@@ -48,7 +48,7 @@ public class CSSolutionSet extends SolutionSet {
         int numToAbandon = (int) (abandonmentRatio * this.numNests);
         int numToKeep = this.numNests - numToAbandon;
         for (int i = numToKeep; i < numNests; i++) {
-            solutions.get(i).setAsRandSol(optProb);
+            solutions.get(i).setAsRandSol(optProb); //modifier appeler la fonction 5 pas rapeller
             solutions.get(i).evalFitness(optProb);
         }
     }

@@ -380,8 +380,8 @@ public class CMAES extends Algorithm {
     Comparator<Solution> comparator = new ObjectiveComparator(0);
 
     init();
-
-    //  // iteration loop
+    
+    //  // iteration loop bbbb
     while (counteval < maxEvaluations) {
 
       // --- core iteration step ---

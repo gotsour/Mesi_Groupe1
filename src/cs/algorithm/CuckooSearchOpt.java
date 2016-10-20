@@ -67,14 +67,17 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		            System.out.printf("Could not generate new random solution! Perhaps you should widen your constraints.");
 		            System.exit(1);;
 				}
+				//newsol == nouvelle solution calculée a partir de i
     		    newSol = i.randomWalk(optProb, "");
     		    /* If the random walk resulted in a solution that is not within constraints,
     		     * then try another random walk from the original solution. */
     		    tries++;
+    		    
+    		    //while tant qu'on ne respecte pas les contraintes
 			} while(!optProb.withinConstraints(newSol));
 		    
 		    int j = rand.nextInt(solutions.getNumSols());
-		    Solution jSol = solutions.getSol(j);
+		    Solution jSol = solutions.getSol(j); //correspond au y newsol correspond au x
 		    
 		    // TODO: use solutions' instance data to get the fitness values to avoid unnecessary calculations
 		    if (optProb.fitness(newSol) > jSol.getFitness()) {

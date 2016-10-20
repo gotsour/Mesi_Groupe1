@@ -21,7 +21,8 @@ public class CSSolution extends Solution {
      * Pass in distribution as "weibull" for an appropriate weibull distribution.
      */
     public CSSolution randomWalk (OptimizationProblem prob, String distribution) {
-        
+        //this = solution i créee
+    	
     	int n = prob.getNumVar();
     	// creates a neighborhood of size 1 times the scaling factor
     	double distanceSquared = Math.pow(rand.nextDouble() * prob.getScalingFactor(),2);
