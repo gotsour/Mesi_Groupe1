@@ -68,6 +68,8 @@ public class CMAES extends Algorithm {
   } // Constructor
 
   private void init() throws ClassNotFoundException {
+	  
+	 // Ajout d'unn commentaire
 
 
     /* User defined input parameters */
@@ -386,11 +388,7 @@ public class CMAES extends Algorithm {
       population_ = samplePopulation(); // get a new population of solutions
 
       for(int i = 0; i < populationSize; i++) {
-//        while (!isFeasible(population_.get(i))) {
-//          //TODO: Implementar resampleSingle
-//          System.out.println("REMAPPING!");
-//          resampleSingle(i);
-//        }
+
         problem_.evaluate(population_.get(i));
 
         counteval += populationSize;
