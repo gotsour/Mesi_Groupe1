@@ -3,16 +3,18 @@ package cs.algorithm;
 
 import java.util.Random;
 
+import imss.ConvertArrays;
+
 
 public class CuckooSearchOpt extends OptimizationAlgorithm {
 
     private CSSolutionSet solutions;
-    protected final int N_NESTS;					//number of nests (solutions)
-    protected final int N_OPTIMIZATIONS;			//number of generations
-    protected final double ABANDON_PROBABILITY;		//percentage of worst solutions discarded
-    private final int MAX_RANDOM_ATTEMPTS;			//maximum attempts to create a new random solution
+    private int N_NESTS;					//number of nests (solutions)
+    private int N_OPTIMIZATIONS;			//number of generations
+    private double ABANDON_PROBABILITY;		//percentage of worst solutions discarded
+    private int MAX_RANDOM_ATTEMPTS;			//maximum attempts to create a new random solution
     
-    public CuckooSearchOpt() {
+    public CuckooSearchOpt( ) {
     	N_NESTS = 15;
     	//56000
 		N_OPTIMIZATIONS = 100000;
@@ -20,6 +22,13 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		MAX_RANDOM_ATTEMPTS = 1000;
     }
     
+    public CuckooSearchOpt(int nNests, int nOptimisations, double abandonProb, int maxRandomAttempts ) {
+    	this.N_NESTS = nNests;
+		this.N_OPTIMIZATIONS = nOptimisations;
+		this.ABANDON_PROBABILITY= abandonProb;
+		MAX_RANDOM_ATTEMPTS = maxRandomAttempts;
+    }
+   
 	public void solve(OptimizationProblem optProb) {
 		/* 
 		 * Objective function 
@@ -99,7 +108,16 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		    }*/
 		}
 	}
-	
+	public double[][] solve(double[][] population){
+		
+		int num_var=population[0].length;
+		
+		
+		
+		
+		
+		return null;
+	}
 	// TODO: prevent returning null. Instead throw an exception. 
 	public CSSolutionSet getSolutions(OptimizationProblem optProb) {
 	    solutions.sortByFitness(optProb);

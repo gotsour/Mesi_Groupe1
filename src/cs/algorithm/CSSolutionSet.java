@@ -4,6 +4,8 @@ package cs.algorithm;
 import java.util.ArrayList;
 import java.util.Random;
 
+import imss.ConvertArrays;
+
 
 public class CSSolutionSet extends SolutionSet {
     
@@ -52,4 +54,28 @@ public class CSSolutionSet extends SolutionSet {
             solutions.get(i).evalFitness(optProb);
         }
     }
+    
+    public ArrayList<CSSolution> getSolutions(){
+    	return solutions;
+    }
+    public int getNumNests(){
+    	return numNests;
+    }
+    public void setSolutions(ArrayList<CSSolution> data){
+    	this.solutions=data;
+    }
+    
+    //TODO
+    public void addDataToCSSolutionSet(double[][] data){
+		//CSSolutionSet set=new CSSolutionSet(oldSet.getNumNests(), oldSet.)
+		if(solutions==null) solutions=new ArrayList<>();
+		for(int i=0;i<data.length;i++){
+			
+			ArrayList<Double> line=ConvertArrays.convertToOneDimensionArrayList(data[i]);
+			CSSolution sol=new CSSolution(line);
+			solutions.add(sol);
+		}
+		
+		
+	}
 }
