@@ -36,7 +36,7 @@ public class IMSS {
 		//creation d'une liste de solution avec un certains nombre de nids (N_NESTS)
 		solutions = new CSSolutionSet(N_NESTS, NUM_VAR);
 				
-		//initialisation aléatoire des solution
+		//  initialisation aléatoire des solution
 		solutions.initializeWithRandomSols(optProb);*/
 		
 		for (int t = 0; t < N_OPTIMIZATIONS; t++) {
