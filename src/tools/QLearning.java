@@ -10,14 +10,14 @@ public class QLearning {
 		this.ro = ro;
 	}
 	
-	public double[][] UpdateQTable(double[][] Q, int solver, float ft, float ftplus, int i) {
-		float rtplus = Math.abs(ftplus - ft);
-		ftplus = rtplus;
+	public double[][] UpdateQTable(double[][] Q, int solver, double ft, double ftplus, int i) {
+		double rtplus = Math.abs(ftplus - ft);
+		//ftplus = rtplus;
 				
 		if ( ftplus > ft ) {
-			Q[i][solver] = Q[i][solver] + ro * (rtplus + (phi*ftplus) - Q[i][solver]);
+			Q[i][solver] = Q[i][solver] + ro * (rtplus + (phi*rtplus) - Q[i][solver]);
 		} else {
-			Q[i][solver] = Q[i][solver] + ro * (-rtplus - (phi*ftplus) - Q[i][solver]);
+			Q[i][solver] = Q[i][solver] + ro * (-rtplus - (phi*rtplus) - Q[i][solver]);
 		}
 		return Q;
 	}

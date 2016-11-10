@@ -80,6 +80,11 @@ public class CMAExample1 {
  * @author Nikolaus Hansen, released into public domain. 
  */
 public class CMAExample1 {
+	public static void init(){
+		
+	}
+	
+	
 	public static void main(String[] args) {
 		IObjectiveFunction fitfun = new Rosenbrock();
 
@@ -97,11 +102,12 @@ public class CMAExample1 {
 		// initial output to files
 		cma.writeToDefaultFilesHeaders(0); // 0 == overwrites old files
 
+		double[][] savePop=null;
 		// iteration loop
 		while(cma.stopConditions.getNumber() == 0) {
 
             // --- core iteration step ---
-			double[][] pop = cma.samplePopulation(); // get a new population of solutions
+			double[][] pop = cma.samplePopulation2(savePop); // get a new population of solutions
 			for(int i = 0; i < pop.length; ++i) {    // for each candidate solution i
             	// a simple way to handle constraints that define a convex feasible domain  
             	// (like box constraints, i.e. variable boundaries) via "blind re-sampling" 
@@ -112,6 +118,7 @@ public class CMAExample1 {
                 // compute fitness/objective value	
 				fitness[i] = fitfun.valueOf(pop[i]); // fitfun.valueOf() is to be minimized
 			}
+			
 			cma.updateDistribution(fitness);         // pass fitness array to update search distribution
             // --- end core iteration step ---
 
@@ -122,6 +129,14 @@ public class CMAExample1 {
 				cma.printlnAnnotation(); // might write file as well
 			if (cma.getCountIter() % outmod == 1)
 				cma.println(); 
+			savePop=pop;
+		}
+		
+		for(int i = 0; i < savePop.length; ++i) {    // for each candidate solution i
+			for(int j = 0; j < savePop[i].length; ++j) { 
+				System.out.print(savePop[i][j]+" ");
+			}
+			System.out.println("");
 		}
 		// evaluate mean value as it is the best estimator for the optimum
 		cma.setFitnessOfMeanX(fitfun.valueOf(cma.getMeanX())); // updates the best ever solution 

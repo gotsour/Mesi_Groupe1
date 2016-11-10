@@ -15,7 +15,7 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
     public CuckooSearchOpt() {
     	N_NESTS = 15;
     	//56000
-		N_OPTIMIZATIONS = 100000;
+		N_OPTIMIZATIONS = 100;
 		ABANDON_PROBABILITY = 0.25;
 		MAX_RANDOM_ATTEMPTS = 1000;
     }
@@ -97,7 +97,10 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		    if((t+1)%(N_OPTIMIZATIONS/NUM_DATA)==0) {
 		    	fitnesses.add(new Double(solutions.getMostFitSolution(optProb).getFitness()));
 		    }*/
+		    System.out.println("nb var : "+solutions.getSolutions().get(1).getVars().size());
+		    System.out.println("nb solution : "+solutions.getSolutions().size());
 		}
+		
 	}
 	
 	// TODO: prevent returning null. Instead throw an exception. 

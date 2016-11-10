@@ -97,7 +97,12 @@ public class Solution {
         return output;
     }
     
-    public void print() {
+    
+    public int getNumVars() {
+		return numVars;
+	}
+
+	public void print() {
         System.out.println(this.toString());
     }
 }

@@ -1,64 +1,63 @@
 package imss;
-
 import cmaes.PseudoRandom;
 import cs.algorithm.CSSolutionSet;
 import cs.algorithm.OptimizationProblem;
 import cs.algorithm.Solution;
-
-//maximum attempts to create a new random solution
+import cmaes2.*;
+import cmaes2.fitness.IObjectiveFunction;
+import Probleme.*;
 
 public class IMSS {
 	private CSSolutionSet solutions;
-    protected final int N_NESTS;
-	protected final int N_OPTIMIZATIONS;			//number of generations
-	protected final double ABANDON_PROBABILITY;		//percentage of worst solutions discarded
-	private final int MAX_RANDOM_ATTEMPTS;	
-	private Solution QTable[][];
-	 protected final int CS=0;
-	 protected final int CMAES=1;
-	 protected int SEcmaes;
-	 protected int SEcs;
-	
+    protected final int taillePopulation;
+    protected final int nombreVariable;
+	protected final int nombreOptimisation;			//number of generations	
+	protected double QTable[][];
+	protected double population[][];
+	protected final int CS=0;
+	protected final int CMAES=1;
+	protected int SEcmaes;
+	protected int SEcs;
+	protected CMAES cmaes;
+	protected IObjectiveFunction probleme;
 	
 	public IMSS() {
-    	N_NESTS = 15;
-		N_OPTIMIZATIONS = 100000;
-		ABANDON_PROBABILITY = 0.25;
-		MAX_RANDOM_ATTEMPTS = 1000;
-		QTable=new Solution[N_NESTS][2];
+		nombreVariable=3; //à ajouter dans le probleme
+		taillePopulation = 100;
+		nombreOptimisation = 1500;
+		QTable=new double[taillePopulation][2];
 		SEcmaes=0;
 		SEcs=0;
-	
+		probleme=new Rosenbrock();
+		cmaes=new CMAES(taillePopulation,nombreVariable,probleme);
     }
 	
-	public void solve(OptimizationProblem optProb) {
-		/*int NUM_VAR = optProb.getNumVar();
-		//creation d'une liste de solution avec un certains nombre de nids (N_NESTS)
-		solutions = new CSSolutionSet(N_NESTS, NUM_VAR);
-				
-		//  initialisation aléatoire des solution
-		solutions.initializeWithRandomSols(optProb);*/
-		
-		for (int t = 0; t < N_OPTIMIZATIONS; t++) {
-			if(SEcmaes>SEcs){
+	public void solve() {
+		for (int t = 0; t < nombreOptimisation; t++) {
+			//if(SEcmaes>SEcs){
 				SEcmaes=0;
-				/*population_ = samplePopulation(); // get a new population of solutions
-
-			      for(int i = 0; i < populationSize; i++) {
-
-			        problem_.evaluate(population_.get(i));
-
-			        counteval += populationSize;
-
-			      }*/
-				
-				
-				
-			}
+				QTable=cmaes.solve(population, QTable);
+				//recupere la nouvelle population générée
+				population=cmaes.getNewPopulation();
+			/*}
 			else{
+			SEcs=0;
+			//appel de l'algo CS
 				
-			}
-			
+			}*/
 		}
+		cmaes.fin();
+	}
+
+	public double[][] getPopulation() {
+		return population;
+	}
+	
+	public double[][] getQTable() {
+		return QTable;
+	}
+
+	public void setQTable(double[][] qTable) {
+		QTable = qTable;
 	}
 }
