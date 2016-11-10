@@ -79,4 +79,28 @@ public class IMSS {
 	public void setQTable(double[][] qTable) {
 		QTable = qTable;
 	}
+	
+	/**
+	 * SUM QTable for CMAES Algorithm
+	 * @return La somme des valeurs contenues dans QTable pour l'algo CMAES 
+	 */
+	public double QTableSUMforCMAES() {
+		double sum = 0;
+		for (int i = 0 ; i < taillePopulation ; i++) {
+			sum += QTable[i][1];
+		}
+		return sum;
+	}
+	
+	/**
+	 * SUM QTable for CS Algorithm
+	 * @return La somme des valeurs contenues dans QTable pour l'algo CS
+	 */
+	public double QTableSUMforCS() {
+		double sum = 0;
+		for (int i = 0 ; i < taillePopulation ; i++) {
+			sum += QTable[i][0];
+		}
+		return sum;
+	}
 }
