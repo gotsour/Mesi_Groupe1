@@ -46,7 +46,7 @@ public class IMSS {
 				
 			}*/
 		}
-		cmaes.fin();
+		//cmaes.fin();
 	}
 
 	public double[][] getPopulation() {
