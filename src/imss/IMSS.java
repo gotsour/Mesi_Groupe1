@@ -5,6 +5,9 @@ import cs.algorithm.OptimizationProblem;
 import cs.algorithm.Solution;
 import cmaes2.*;
 import cmaes2.fitness.IObjectiveFunction;
+
+import java.util.Random;
+
 import Probleme.*;
 
 public class IMSS {
@@ -31,6 +34,17 @@ public class IMSS {
 		probleme=new Rosenbrock();
 		cmaes=new CMAES(taillePopulation,nombreVariable,probleme);
     }
+	
+	public void initPopulation(double borneMin, double borneMax) {
+		population = new double[taillePopulation][nombreVariable];
+		for ( int i = 0 ; i < taillePopulation ; i++) {
+			for (int j = 0 ; j < nombreVariable ; j++) {
+				Random r = new Random();
+				double randomValue = borneMin + (borneMax - borneMin) * r.nextDouble();
+				population[i][j] = randomValue;
+			}
+		}
+	}
 	
 	public void solve() {
 		for (int t = 0; t < nombreOptimisation; t++) {
