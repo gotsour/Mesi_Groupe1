@@ -12,11 +12,11 @@ public class CMAES {
 	CMAEvolutionStrategy cma;
 	double[] fitness;
 	IObjectiveFunction fitfun;
-	QLearning ql;
 	double[][] newPopulation;
+	QLearning ql;
 	
 	//init
-	public CMAES(int taillePop,int nombreVariable, IObjectiveFunction calculfitness){
+	public CMAES(int taillePop,int nombreVariable, IObjectiveFunction calculfitness, QLearning ql){
 		fitfun=calculfitness;
 		
 		cma = new CMAEvolutionStrategy();
@@ -25,13 +25,14 @@ public class CMAES {
 		cma.setInitialX(0.05); // in each dimension, also setTypicalX can be used
 		cma.setInitialStandardDeviation(0.2); // also a mandatory setting 
 		cma.options.stopFitness = 1e-14;       // optional setting
-		ql=new QLearning(0.1f,0.2f); // ajouter bonne valeur pour les constante
 		// initialize cma and get fitness array to fill in later
 		fitness = cma.init();  // new double[cma.parameters.getPopulationSize()];
 	
 		// initial output to files
 		cma.writeToDefaultFilesHeaders(0); // 0 == overwrites old files
-		}
+		
+		this.ql = ql;
+	}
 	
 	
 	

@@ -3,6 +3,7 @@ import cmaes.PseudoRandom;
 import cs.algorithm.CSSolutionSet;
 import cs.algorithm.OptimizationProblem;
 import cs.algorithm.Solution;
+import tools.QLearning;
 import cmaes2.*;
 import cmaes2.fitness.IObjectiveFunction;
 
@@ -23,6 +24,9 @@ public class IMSS {
 	protected int SEcs;
 	protected CMAES cmaes;
 	protected IObjectiveFunction probleme;
+	QLearning ql;
+	protected final float gamma = 0.7f;
+	protected final float ro = 0.5f;
 	
 	public IMSS() {
 		nombreVariable=3; //à ajouter dans le probleme
@@ -32,7 +36,8 @@ public class IMSS {
 		SEcmaes=0;
 		SEcs=0;
 		probleme=new Rosenbrock();
-		cmaes=new CMAES(taillePopulation,nombreVariable,probleme);
+		ql=new QLearning(gamma,ro);
+		cmaes=new CMAES(taillePopulation,nombreVariable,probleme,ql);
     }
 	
 	public void initPopulation(double borneMin, double borneMax) {
