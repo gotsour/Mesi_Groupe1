@@ -18,14 +18,15 @@ public class CSSolutionSet extends SolutionSet {
         super.N_SOL = numNests;
         this.rand = new Random();
         this.solutions = new ArrayList<CSSolution>(numNests);
-        
+        System.out.println("creation liste num var :"+numVars);
         for (int i = 0; i < numNests; i++) {
             this.solutions.add(i, new CSSolution(numVars));
+            
         }
         
         super.solutions = solutions;
     }
-    
+   
     public void initializeWithRandomSols(OptimizationProblem optProb) {
         for (CSSolution sol : this.solutions) {
             sol.setAsRandSol(optProb);

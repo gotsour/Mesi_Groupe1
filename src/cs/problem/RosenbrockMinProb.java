@@ -33,7 +33,11 @@ public class RosenbrockMinProb extends OptimizationProblem {
 		for(int i=0; i<N-1; i++) {
 			double xi = vars.get(i).doubleValue();
 			double xi1 = vars.get(i+1).doubleValue();
-			sum += 100*Math.pow(xi1 - xi*xi, 2)+Math.pow(xi-1, 2);
+			
+			//sum += 100*Math.pow(xi1 - xi*xi, 2)+Math.pow(xi-1, 2);
+			
+			sum += 100 * (xi*xi - xi1) * (xi*xi - xi1) + 
+					(xi - 1.) * (xi - 1.);
 		}
 		
 		return sum;
@@ -46,7 +50,7 @@ public class RosenbrockMinProb extends OptimizationProblem {
 
 	@Override
 	public double fitness(Solution s) {
-		return -rosenbrockFunc(s);
+		return rosenbrockFunc(s);
 	}
 
 	@Override
@@ -64,36 +68,6 @@ public class RosenbrockMinProb extends OptimizationProblem {
 		solString += "f(x) = " + s.getFitness();
 		
 	    return solString;
-	}
-
-	@Override
-    public String solToJson(Solution s) {
-    	// converts solution array list into a matrix
-    	ArrayList<Double> vars = s.getVars();
-    	ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>>(N);
-    	for (int i = 0; i < N; i++){ // for each row
-    		ArrayList<String> temp = new ArrayList<String>(2);
-    		temp.add("x" + i);
-    		temp.add(String.format("%.4f", vars.get(i)));
-    		matrix.add(temp);
-     	}
-    	
-    	Gson gson = new Gson();
-    	String json = gson.toJson(matrix);
-    	return json;
-    }
-	
-	@Override
-	public String solToTable(Solution s){
-    	ArrayList<Double> vars = s.getVars();
-    	
-		String html = "<table>";
-		for (int i = 0; i < N; i++) { // for each row
-			html += String.format("<tr><td>x%d</td><td>%.4f</td></tr>", i, vars.get(i));
-		}
-		html += String.format("<tr><td>Minimum f(x):</td><td>%.2f</td></tr></table>",-s.getFitness());
-		
-		return html;
 	}
 
 }

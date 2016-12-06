@@ -1,8 +1,10 @@
 package imss;
 import cmaes.PseudoRandom;
 import cs.algorithm.CSSolutionSet;
+import cs.algorithm.CuckooSearchOpt;
 import cs.algorithm.OptimizationProblem;
 import cs.algorithm.Solution;
+import cs.problem.RosenbrockMinProb;
 import tools.QLearning;
 import cmaes2.*;
 import cmaes2.fitness.IObjectiveFunction;
@@ -18,11 +20,13 @@ public class IMSS {
 	protected final int nombreOptimisation;			//number of generations	
 	protected double QTable[][];
 	protected double population[][];
+	protected double fitness[];
 	protected final int CS=0;
 	protected final int CMAES=1;
-	protected int SEcmaes;
-	protected int SEcs;
+	protected double SEcmaes;
+	protected double SEcs;
 	protected CMAES cmaes;
+	protected CuckooSearchOpt cs;
 	protected IObjectiveFunction probleme;
 	QLearning ql;
 	protected final float gamma = 0.7f;
@@ -30,18 +34,23 @@ public class IMSS {
 	
 	public IMSS() {
 		nombreVariable=3; //à ajouter dans le probleme
-		taillePopulation = 100;
-		nombreOptimisation = 1500;
+		taillePopulation = 10;
+		nombreOptimisation = 1000;
 		QTable=new double[taillePopulation][2];
 		SEcmaes=0;
 		SEcs=0;
 		probleme=new Rosenbrock();
 		ql=new QLearning(gamma,ro);
 		cmaes=new CMAES(taillePopulation,nombreVariable,probleme,ql);
+		RosenbrockMinProb problemeCS=new RosenbrockMinProb(nombreVariable);
+		System.out.println("num var "+problemeCS.getNumVar());
+		cs= new CuckooSearchOpt(taillePopulation,problemeCS,ql);
+		
+		population = new double[taillePopulation][nombreVariable];
+		fitness= new double[taillePopulation];
     }
 	
 	public void initPopulation(double borneMin, double borneMax) {
-		population = new double[taillePopulation][nombreVariable];
 		for ( int i = 0 ; i < taillePopulation ; i++) {
 			for (int j = 0 ; j < nombreVariable ; j++) {
 				Random r = new Random();
@@ -49,21 +58,46 @@ public class IMSS {
 				population[i][j] = randomValue;
 			}
 		}
+		
+		for ( int i = 0 ; i < taillePopulation ; i++) {
+			fitness[i]=probleme.valueOf(population[i]);
+		}
+		
+	}
+	
+	public void affichePop() {
+		for(int i=0;i<population.length;i++){
+			for(int j=0;j<population[i].length;j++){
+				System.out.print(population[i][j]+" ");
+			}
+			System.out.println();
+		}
+		
 	}
 	
 	public void solve() {
 		for (int t = 0; t < nombreOptimisation; t++) {
-			//if(SEcmaes>SEcs){
-				SEcmaes=0;
-				QTable=cmaes.solve(population, QTable);
+			if(SEcmaes>SEcs){
+				affichePop();
+				QTable=cmaes.solve(population,fitness, QTable);
 				//recupere la nouvelle population générée
 				population=cmaes.getNewPopulation();
-			/*}
+				fitness=cmaes.getFitness();
+				SEcmaes=QTableSUMforCMAES();
+				System.out.println("+++++++++++++CMAES "+SEcmaes+" cs "+cs);
+				affichePop();
+			}
 			else{
-			SEcs=0;
-			//appel de l'algo CS
+				/**voir pb CS */
+				QTable=cs.solve(population,fitness, QTable);
+				population=cs.getPopulation();
+				fitness=cs.getFitness();
+				SEcs=QTableSUMforCS();
 				
-			}*/
+				System.out.println("+++++++++++++CS "+SEcs +" cmaes "+SEcmaes);
+				
+				
+			}
 		}
 		//cmaes.fin();
 	}

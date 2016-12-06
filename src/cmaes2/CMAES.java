@@ -11,6 +11,7 @@ import cmaes2.CMAEvolutionStrategy;
 public class CMAES {
 	CMAEvolutionStrategy cma;
 	double[] fitness;
+	double[] fitnessOld;
 	IObjectiveFunction fitfun;
 	double[][] newPopulation;
 	QLearning ql;
@@ -36,7 +37,7 @@ public class CMAES {
 	
 	
 	
-	public double[][] solve(double[][] population,double[][] Q ){
+	public double[][] solve(double[][] population, double[] fitnessOld,double[][] Q ){
 		
 			newPopulation = cma.samplePopulation2(population); // get a new population of solutions from the old population
 			for(int i = 0; i < newPopulation.length; ++i) {    // pour chaque element de la nouvelle population	
@@ -45,7 +46,7 @@ public class CMAES {
 					newPopulation[i] = cma.resampleSingle(i);    //   initialX is feasible and initialStandardDeviations are  
 		                                               //   sufficiently small to prevent quasi-infinite looping here
 		        // remplissage QTable
-				Q=ql.UpdateQTable(Q,1, fitness[i], fitfun.valueOf(newPopulation[i]),i);
+				Q=ql.UpdateQTable(Q,1, fitnessOld[i], fitfun.valueOf(newPopulation[i]),i);
 				// compute fitness/objective value	
 				fitness[i] = fitfun.valueOf(newPopulation[i]); // modifie le fitness de chaque solution de la population
 				
@@ -84,6 +85,10 @@ public class CMAES {
 
 	public double[][] getNewPopulation() {
 		return newPopulation;
+	}
+	
+	public double[] getFitness(){
+		return this.fitness;
 	}
 	
 	

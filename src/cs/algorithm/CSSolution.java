@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import DistLib.uniform;
 import DistLib.weibull;
+import tools.QLearning;
 
 
 public class CSSolution extends Solution {
@@ -14,6 +15,13 @@ public class CSSolution extends Solution {
     }
     public CSSolution(int numVars) {
         super(numVars);
+        this.vars=new ArrayList<Double>(numVars);
+        for(int i=0;i<numVars;i++){
+    		vars.add(0.0);
+    	}
+    }
+    public double getIndice(int i){
+    	return this.vars.get(i);
     }
     
     /**
@@ -22,7 +30,7 @@ public class CSSolution extends Solution {
      */
     public CSSolution randomWalk (OptimizationProblem prob, String distribution) {
         //this = solution i créee
-    	
+    	//Q=ql.UpdateQTable(Q,1, fitness[i], fitfun.valueOf(newPopulation[i]),i);
     	int n = prob.getNumVar();
     	// creates a neighborhood of size 1 times the scaling factor
     	double distanceSquared = Math.pow(rand.nextDouble() * prob.getScalingFactor(),2);

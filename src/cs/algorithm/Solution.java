@@ -28,7 +28,10 @@ public class Solution {
     }
     
     public Solution(int numVars) {
-    	this.vars = new ArrayList<Double>();
+    	this.vars = new ArrayList<Double>(numVars);
+    	for(int i=0;i<numVars;i++){
+    		vars.add(0.0);
+    	}
     	this.numVars = numVars;
     }
     

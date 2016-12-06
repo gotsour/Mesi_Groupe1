@@ -3,6 +3,7 @@ package imss;
 public class main {
 	public static void main(String[] args) {
 		IMSS test= new IMSS();
+		test.initPopulation(-200, 200);
 		test.solve();
 		
 		//affichange des solutions
