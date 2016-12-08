@@ -69,7 +69,7 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		            System.exit(1);;
 				}
 				//newsol == nouvelle solution calculée a partir de i
-    		    newSol = i.randomWalk(optProb, "");
+    		    newSol = i.randomWalk(optProb, "levy");
     		    /* If the random walk resulted in a solution that is not within constraints,
     		     * then try another random walk from the original solution. */
     		    tries++;

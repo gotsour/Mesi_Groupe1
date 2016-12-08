@@ -2,6 +2,7 @@ package cs.algorithm;
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import DistLib.uniform;
 import DistLib.weibull;
@@ -30,7 +31,6 @@ public class CSSolution extends Solution {
      */
     public CSSolution randomWalk (OptimizationProblem prob, String distribution) {
         //this = solution i créee
-    	//Q=ql.UpdateQTable(Q,1, fitness[i], fitfun.valueOf(newPopulation[i]),i);
     	int n = prob.getNumVar();
     	// creates a neighborhood of size 1 times the scaling factor
     	double distanceSquared = Math.pow(rand.nextDouble() * prob.getScalingFactor(),2);
@@ -54,11 +54,13 @@ public class CSSolution extends Solution {
     		
     		// use correct distribution to generate random double [0,1)
     		double r;
-            if (distribution == "weibull")
-                r = weibull.random(1.5, 1, new uniform());
-            else
+            if (distribution == "levy") {
+            	r = LevyDistribution.sample(1.5);
+            	//r = weibull.random(1.5, 1, new uniform());
+            } else {
                 r = rand.nextDouble();
-    		// alters this variable coefficient by adding a random step between (-distance,distance)
+            }
+            // alters this variable coefficient by adding a random step between (-distance,distance)
     		double distance = Math.sqrt(distanceSquared);
     		double varStep = r*distance*2-distance;
     		double newVar = curVar + varStep;
