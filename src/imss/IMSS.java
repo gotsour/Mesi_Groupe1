@@ -9,6 +9,7 @@ import tools.QLearning;
 import cmaes2.*;
 import cmaes2.fitness.IObjectiveFunction;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import Probleme.*;
@@ -33,9 +34,9 @@ public class IMSS {
 	protected final float ro = 0.5f;
 	
 	public IMSS() {
-		nombreVariable=3; //à ajouter dans le probleme
-		taillePopulation = 10;
-		nombreOptimisation = 1000;
+		nombreVariable=15; //à ajouter dans le probleme
+		taillePopulation = 100;
+		nombreOptimisation = 10000;//10e5
 		QTable=new double[taillePopulation][2];
 		SEcmaes=0;
 		SEcs=0;
@@ -48,6 +49,8 @@ public class IMSS {
 		
 		population = new double[taillePopulation][nombreVariable];
 		fitness= new double[taillePopulation];
+		
+		
     }
 	
 	public void initPopulation(double borneMin, double borneMax) {
@@ -77,27 +80,42 @@ public class IMSS {
 	
 	public void solve() {
 		for (int t = 0; t < nombreOptimisation; t++) {
-			if(SEcmaes>SEcs){
+			/*if(SEcmaes>SEcs){
 				affichePop();
 				QTable=cmaes.solve(population,fitness, QTable);
 				//recupere la nouvelle population générée
 				population=cmaes.getNewPopulation();
 				fitness=cmaes.getFitness();
 				SEcmaes=QTableSUMforCMAES();
-				System.out.println("+++++++++++++CMAES "+SEcmaes+" cs "+cs);
-				affichePop();
-			}
-			else{
-				/**voir pb CS */
+				//System.out.println("+++++++++++++CMAES "+SEcmaes+" cs "+cs);
+				//affichePop();
+				
+				for(int i=0;i<getPopulation().length;i++){
+					for(int j=0;j<getPopulation()[i].length;j++){
+						System.out.print(" "+getPopulation()[i][j]);
+					}
+					System.out.println("/"+fitness[i]);
+				}
+				System.out.println(" ");
+				
+			}*/
+			//else{
+				//voir pb CS 
 				QTable=cs.solve(population,fitness, QTable);
 				population=cs.getPopulation();
 				fitness=cs.getFitness();
 				SEcs=QTableSUMforCS();
+				/*for(int i=0;i<getPopulation().length;i++){
+					for(int j=0;j<getPopulation()[i].length;j++){
+						System.out.print(" "+getPopulation()[i][j]);
+					}
+					System.out.println("/"+fitness[i]);
+				}
+				System.out.println(" ");*/
+				//System.out.println("+++++++++++++CS "+SEcs +" cmaes "+SEcmaes);
 				
-				System.out.println("+++++++++++++CS "+SEcs +" cmaes "+SEcmaes);
 				
-				
-			}
+			//}
 		}
 		//cmaes.fin();
 	}

@@ -22,7 +22,8 @@ public class RosenbrockMinProb extends OptimizationProblem {
 	public RosenbrockMinProb(int n) {
 		N=n;
 		for(int i=0; i<N; i++) {
-			this.constraints.add(new Constraint(i, -Math.pow(10,4), Math.pow(10,4)));
+			this.constraints.add(new Constraint(i, -200, 200));
+			//this.constraints.add(new Constraint(i, -Math.pow(10,4), Math.pow(10,4)));
 		}
 	}
 	
@@ -34,10 +35,10 @@ public class RosenbrockMinProb extends OptimizationProblem {
 			double xi = vars.get(i).doubleValue();
 			double xi1 = vars.get(i+1).doubleValue();
 			
-			//sum += 100*Math.pow(xi1 - xi*xi, 2)+Math.pow(xi-1, 2);
+			sum += 100*Math.pow(xi1 - xi*xi, 2)+Math.pow(xi-1, 2);
 			
-			sum += 100 * (xi*xi - xi1) * (xi*xi - xi1) + 
-					(xi - 1.) * (xi - 1.);
+			/*sum += 100 * (xi*xi - xi1) * (xi*xi - xi1) + 
+					(xi - 1.) * (xi - 1.);*/
 		}
 		
 		return sum;

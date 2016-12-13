@@ -22,7 +22,8 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
     private QLearning ql;
     private double fitness[];
     private double population[][];
-    
+ 
+
     public CuckooSearchOpt() {
     	
 		numVar=0;
@@ -34,7 +35,7 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
     	this.N_NESTS = taillePop;
     	this.optProb=probleme;
     	ABANDON_PROBABILITY = 0.25;
-		MAX_RANDOM_ATTEMPTS = 10;
+		MAX_RANDOM_ATTEMPTS = 100000;
 		numVar=probleme.getNumVar();
 		rand = new Random();
 		numRuns = 0;
@@ -77,7 +78,7 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
     		    //while tant qu'on ne respecte pas les contraintes
 			} while(!optProb.withinConstraints(newSol));
 			newFitness=optProb.fitness(newSol);
-			System.out.println("new fitness "+newFitness+" old fitness "+fitness[k] );//+" population : "+this.population[k][0]+" "+this.population[k][1]+" "+this.population[k][2] );
+			//System.out.println("new fitness "+newFitness+" old fitness "+fitness[k] );//+" population : "+this.population[k][0]+" "+this.population[k][1]+" "+this.population[k][2] );
 		    if ( newFitness < fitness[k]) {
 		    	solutions.replace(k, newSol);
 		    	solutions.getSol(k).evalFitness(optProb);;
@@ -90,17 +91,39 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		    Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
 		    }
 		    
-
-		        
-		    /*
-		     * 
-		     * à faire
-		     * 
-		     */
-		    // Resets worst solutions to random values.
-		    //solutions.abandonWorstSols(optProb, ABANDON_PROBABILITY);
-		    
-		 
+		    i = solutions.getSolutions().get(k);
+		    //second test
+		    //System.out.println("seconde partie de test");
+		    if(Math.random()>ABANDON_PROBABILITY){
+			tries = 0;
+			do {
+				if (tries > MAX_RANDOM_ATTEMPTS) {
+		            System.out.printf("Could not generate new random solution! Perhaps you should widen your constraints 2.");
+		            System.exit(1);;
+				}
+				//newsol == nouvelle solution calculée a partir de i
+				//newSol = i.randomWalk(optProb, "levy");
+    		    newSol = i.randomWalk5(optProb, ABANDON_PROBABILITY);//,solutions.getSolutions());
+    		    // If the random walk resulted in a solution that is not within constraints,
+    		     // then try another random walk from the original solution. 
+    		    tries++;
+    		    
+    		    //while tant qu'on ne respecte pas les contraintes
+			} while(!optProb.withinConstraints(newSol));
+			newFitness=optProb.fitness(newSol);
+			
+			if ( newFitness < fitness[k]) {
+		    	solutions.replace(k, newSol);
+		    	solutions.getSol(k).evalFitness(optProb);;
+		    	Q=ql.UpdateQTable(Q,0,  fitness[k], newFitness,k);
+		    	fitness[k]=newFitness;
+		    	population[k]=listToArray(k);
+		    	//System.out.println("change fitness ");
+		    }
+		    else{
+		    Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
+		    }
+		    }
 		    
 		}
 		

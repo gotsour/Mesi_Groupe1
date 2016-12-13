@@ -25,6 +25,7 @@ public class Solution {
     public Solution(ArrayList<Double> vars) {
         this.vars = new ArrayList<Double>(vars);
         this.numVars = vars.size();
+        
     }
     
     public Solution(int numVars) {
