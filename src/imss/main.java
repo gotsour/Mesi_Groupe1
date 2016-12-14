@@ -7,7 +7,7 @@ import cs.algorithm.Solution;
 public class main {
 	public static void main(String[] args) {
 		IMSS test= new IMSS();
-		test.initPopulation(-200, 200);
+		test.initPopulation(-100, 100);
 		test.solve();
 		
 		
@@ -18,7 +18,7 @@ public class main {
 			for(int j=0;j<test.getPopulation()[i].length;j++){
 				System.out.print(" "+test.getPopulation()[i][j]);
 			}
-			System.out.println(" ");
+			System.out.println("fitness : "+test.getFitness()[i]);
 		}
 	
 	}

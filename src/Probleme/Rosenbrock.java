@@ -8,7 +8,7 @@ public class Rosenbrock implements IObjectiveFunction { // meaning implements me
 		for (int i = 0; i < x.length-1; ++i)
 			res += 100 * (x[i]*x[i] - x[i+1]) * (x[i]*x[i] - x[i+1]) + 
 			(x[i] - 1.) * (x[i] - 1.);
-		return res;//+360;
+		return res+360;
 	}
 	public boolean isFeasible(double[] x) {return true; } // entire R^n is feasible
 }

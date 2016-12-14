@@ -88,7 +88,7 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		    	//System.out.println("change fitness ");
 		    }
 		    else{
-		    Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
+		   // Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
 		    }
 		    
 		    i = solutions.getSolutions().get(k);
@@ -121,7 +121,7 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		    	//System.out.println("change fitness ");
 		    }
 		    else{
-		    Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
+		    //Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
 		    }
 		    }
 		    

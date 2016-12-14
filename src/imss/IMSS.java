@@ -30,7 +30,7 @@ public class IMSS {
 	public IMSS() {
 		nombreVariable=15; //à ajouter dans le probleme
 		taillePopulation = 100;
-		nombreOptimisation = 10000;//10e5
+		nombreOptimisation = 100000;//10e5
 		QTable=new double[taillePopulation][2];
 		SEcmaes=0;
 		SEcs=0;
@@ -74,31 +74,16 @@ public class IMSS {
 	
 	public void solve() {
 		for (int t = 0; t < nombreOptimisation; t++) {
-			/*if(SEcmaes>SEcs){
-				affichePop();
+			//if(SEcmaes>SEcs){
+				//affichePop();
 				QTable=cmaes.solve(population,fitness, QTable);
 				//recupere la nouvelle population générée
 				population=cmaes.getNewPopulation();
 				fitness=cmaes.getFitness();
 				SEcmaes=QTableSUMforCMAES();
-				//System.out.println("+++++++++++++CMAES "+SEcmaes+" cs "+cs);
+				System.out.println("+++++++++++++CMAES "+SEcmaes+" cs "+SEcs);
 				//affichePop();
 				
-				for(int i=0;i<getPopulation().length;i++){
-					for(int j=0;j<getPopulation()[i].length;j++){
-						System.out.print(" "+getPopulation()[i][j]);
-					}
-					System.out.println("/"+fitness[i]);
-				}
-				System.out.println(" ");
-				
-			}*/
-			//else{
-				//voir pb CS 
-				QTable=cs.solve(population,fitness, QTable);
-				population=cs.getPopulation();
-				fitness=cs.getFitness();
-				SEcs=QTableSUMforCS();
 				/*for(int i=0;i<getPopulation().length;i++){
 					for(int j=0;j<getPopulation()[i].length;j++){
 						System.out.print(" "+getPopulation()[i][j]);
@@ -106,11 +91,20 @@ public class IMSS {
 					System.out.println("/"+fitness[i]);
 				}
 				System.out.println(" ");*/
-				//System.out.println("+++++++++++++CS "+SEcs +" cmaes "+SEcmaes);
+				
+			}
+			/*else{
+				//voir pb CS 
+				QTable=cs.solve(population,fitness, QTable);
+				population=cs.getPopulation();
+				fitness=cs.getFitness();
+				SEcs=QTableSUMforCS();
+				
+				System.out.println("+++++++++++++CS "+SEcs +" cmaes "+SEcmaes);
 				
 				
-			//}
-		}
+			}
+		}*/
 		//cmaes.fin();
 	}
 
@@ -149,4 +143,10 @@ public class IMSS {
 		}
 		return sum;
 	}
+
+	public double[] getFitness() {
+		return fitness;
+	}
+	
+	
 }
