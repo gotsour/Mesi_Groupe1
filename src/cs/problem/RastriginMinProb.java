@@ -27,7 +27,7 @@ public class RastriginMinProb extends OptimizationProblem {
         N = numVar;
 		
         for(int i=0; i<N; i++) {
-        	this.constraints.add(new Constraint(i, -5.12, 5.12));
+        	this.constraints.add(new Constraint(i, -5, 5));
         }
     }
 	
