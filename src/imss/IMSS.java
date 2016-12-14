@@ -1,21 +1,15 @@
 package imss;
-import cmaes.PseudoRandom;
-import cs.algorithm.CSSolutionSet;
 import cs.algorithm.CuckooSearchOpt;
-import cs.algorithm.OptimizationProblem;
-import cs.algorithm.Solution;
 import cs.problem.RosenbrockMinProb;
 import tools.QLearning;
 import cmaes2.*;
 import cmaes2.fitness.IObjectiveFunction;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import Probleme.*;
 
 public class IMSS {
-	private CSSolutionSet solutions;
     protected final int taillePopulation;
     protected final int nombreVariable;
 	protected final int nombreOptimisation;			//number of generations	

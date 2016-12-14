@@ -2,13 +2,10 @@ package imss;
 
 import java.util.ArrayList;
 
-import cmaes.SolutionSet;
 import cs.algorithm.CSSolution;
 import cs.algorithm.CSSolutionSet;
 import cs.algorithm.CuckooSearchOpt;
 import cs.algorithm.OptimizationProblem;
-import cs.algorithm.Solution;
-import cs.problem.RosenbrockMinProb;
 
 
 public class ConvertArrays {
