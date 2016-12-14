@@ -1,5 +1,6 @@
 package imss;
 import cs.algorithm.CuckooSearchOpt;
+import cs.algorithm.OptimizationProblem;
 import cs.problem.RosenbrockMinProb;
 import tools.QLearning;
 import cmaes2.*;
@@ -22,30 +23,32 @@ public class IMSS {
 	protected double SEcs;
 	protected CMAES cmaes;
 	protected CuckooSearchOpt cs;
-	protected IObjectiveFunction probleme;
+	protected IObjectiveFunction problemeCMAES;
 	QLearning ql;
 	protected final float gamma = 0.7f;
 	protected final float ro = 0.5f;
+	protected OptimizationProblem problemeCS;
 	
-	public IMSS() {
-		nombreVariable=15; //à ajouter dans le probleme
-		taillePopulation = 100;
-		nombreOptimisation = 100000;//10e5
+	public IMSS(int nbVar, int taillePop, int nbOpt,IObjectiveFunction pCMAES,OptimizationProblem pCS) {
+		nombreVariable=nbVar; //à ajouter dans le probleme
+		taillePopulation = taillePop;
+		nombreOptimisation = nbOpt;//10e5
 		QTable=new double[taillePopulation][2];
 		SEcmaes=0;
 		SEcs=0;
-		probleme=new Rosenbrock();
+		problemeCMAES=pCMAES;
 		ql=new QLearning(gamma,ro);
-		cmaes=new CMAES(taillePopulation,nombreVariable,probleme,ql);
-		RosenbrockMinProb problemeCS=new RosenbrockMinProb(nombreVariable);
-		System.out.println("num var "+problemeCS.getNumVar());
+		cmaes=new CMAES(taillePopulation,nombreVariable,problemeCMAES,ql);
+		 problemeCS=pCS;
+		//System.out.println("num var "+problemeCS.getNumVar());
 		cs= new CuckooSearchOpt(taillePopulation,problemeCS,ql);
-		
 		population = new double[taillePopulation][nombreVariable];
 		fitness= new double[taillePopulation];
 		
 		
     }
+	
+	
 	
 	public void initPopulation(double borneMin, double borneMax) {
 		for ( int i = 0 ; i < taillePopulation ; i++) {
@@ -57,7 +60,7 @@ public class IMSS {
 		}
 		
 		for ( int i = 0 ; i < taillePopulation ; i++) {
-			fitness[i]=probleme.valueOf(population[i]);
+			fitness[i]=problemeCMAES.valueOf(population[i]);
 		}
 		
 	}
