@@ -1,11 +1,8 @@
 package imss;
 
-import java.util.ArrayList;
-
 import Probleme.Rosenbrock;
 import cmaes2.fitness.IObjectiveFunction;
 import cs.algorithm.OptimizationProblem;
-import cs.algorithm.Solution;
 import cs.problem.RosenbrockMinProb;
 
 public class main {
@@ -13,7 +10,7 @@ public class main {
 		
 		int nombreVariable=15;
 		int taillePopulation=100;
-		int nombreOptimisation=1000;
+		int nombreOptimisation=100000;
 		OptimizationProblem problemeCS=new RosenbrockMinProb(nombreVariable);
 		IObjectiveFunction problemeCMAES=new Rosenbrock();
 		IMSS test= new IMSS(nombreVariable,taillePopulation,nombreOptimisation,problemeCMAES,problemeCS);
@@ -21,8 +18,7 @@ public class main {
 		test.solve();
 		
 		
-	      
-		
+	     
 		//affichange des solutions
 		for(int i=0;i<test.getPopulation().length;i++){
 			for(int j=0;j<test.getPopulation()[i].length;j++){

@@ -13,7 +13,7 @@ import Probleme.*;
 public class IMSS {
     protected final int taillePopulation;
     protected final int nombreVariable;
-	protected final int nombreOptimisation;			//number of generations	
+	protected final int nombreOptimisation;		
 	protected double QTable[][];
 	protected double population[][];
 	protected double fitness[];
@@ -30,7 +30,7 @@ public class IMSS {
 	protected OptimizationProblem problemeCS;
 	
 	public IMSS(int nbVar, int taillePop, int nbOpt,IObjectiveFunction pCMAES,OptimizationProblem pCS) {
-		nombreVariable=nbVar; //à ajouter dans le probleme
+		nombreVariable=nbVar; 
 		taillePopulation = taillePop;
 		nombreOptimisation = nbOpt;//10e5
 		QTable=new double[taillePopulation][2];
@@ -40,16 +40,14 @@ public class IMSS {
 		ql=new QLearning(gamma,ro);
 		cmaes=new CMAES(taillePopulation,nombreVariable,problemeCMAES,ql);
 		 problemeCS=pCS;
-		//System.out.println("num var "+problemeCS.getNumVar());
+		
 		cs= new CuckooSearchOpt(taillePopulation,problemeCS,ql);
 		population = new double[taillePopulation][nombreVariable];
 		fitness= new double[taillePopulation];
-		
-		
     }
 	
 	
-	
+	//initialisation de la population
 	public void initPopulation(double borneMin, double borneMax) {
 		for ( int i = 0 ; i < taillePopulation ; i++) {
 			for (int j = 0 ; j < nombreVariable ; j++) {
@@ -58,11 +56,36 @@ public class IMSS {
 				population[i][j] = randomValue;
 			}
 		}
-		
 		for ( int i = 0 ; i < taillePopulation ; i++) {
 			fitness[i]=problemeCMAES.valueOf(population[i]);
 		}
-		
+	}
+	
+	
+	public void solve() {
+		for (int t = 0; t < nombreOptimisation; t++) {
+			if(SEcmaes>SEcs){
+				//traitement cmaes
+				QTable=cmaes.solve(population,fitness, QTable);
+				//recupere la nouvelle population générée
+				population=cmaes.getNewPopulation();
+				//récupere le nouveau fitness
+				fitness=cmaes.getFitness();
+				// calcul la performance
+				SEcmaes=QTableSUMforCMAES();
+				System.out.println("+++++++++++++CMAES "+SEcmaes+" cs "+SEcs);
+			}
+			else{
+				//traitement cs 
+				QTable=cs.solve(population,fitness, QTable);
+				population=cs.getPopulation();
+				fitness=cs.getFitness();
+				SEcs=QTableSUMforCS();
+				System.out.println("+++++++++++++CS "+SEcs +" cmaes "+SEcmaes);
+				
+			}
+		}
+		//cmaes.fin();
 	}
 	
 	public void affichePop() {
@@ -72,55 +95,6 @@ public class IMSS {
 			}
 			System.out.println();
 		}
-		
-	}
-	
-	public void solve() {
-		for (int t = 0; t < nombreOptimisation; t++) {
-			if(SEcmaes>SEcs){
-				//affichePop();
-				QTable=cmaes.solve(population,fitness, QTable);
-				//recupere la nouvelle population générée
-				population=cmaes.getNewPopulation();
-				fitness=cmaes.getFitness();
-				SEcmaes=QTableSUMforCMAES();
-				System.out.println("+++++++++++++CMAES "+SEcmaes+" cs "+SEcs);
-				//affichePop();
-				
-				/*for(int i=0;i<getPopulation().length;i++){
-					for(int j=0;j<getPopulation()[i].length;j++){
-						System.out.print(" "+getPopulation()[i][j]);
-					}
-					System.out.println("/"+fitness[i]);
-				}
-				System.out.println(" ");*/
-				
-			}
-			else{
-				//voir pb CS 
-				QTable=cs.solve(population,fitness, QTable);
-				population=cs.getPopulation();
-				fitness=cs.getFitness();
-				SEcs=QTableSUMforCS();
-				
-				System.out.println("+++++++++++++CS "+SEcs +" cmaes "+SEcmaes);
-				
-				
-			}
-		}
-		//cmaes.fin();
-	}
-
-	public double[][] getPopulation() {
-		return population;
-	}
-	
-	public double[][] getQTable() {
-		return QTable;
-	}
-
-	public void setQTable(double[][] qTable) {
-		QTable = qTable;
 	}
 	
 	/**
@@ -151,5 +125,16 @@ public class IMSS {
 		return fitness;
 	}
 	
+	public double[][] getPopulation() {
+		return population;
+	}
+	
+	public double[][] getQTable() {
+		return QTable;
+	}
+
+	public void setQTable(double[][] qTable) {
+		QTable = qTable;
+	}
 	
 }

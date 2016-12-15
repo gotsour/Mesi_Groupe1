@@ -88,7 +88,8 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		    	//System.out.println("change fitness ");
 		    }
 		    else{
-		    Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
+		    	Q=ql.UpdateQTable(Q,0,  fitness[k], newFitness,k);	
+		    //Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
 		    }
 		    
 		    i = solutions.getSolutions().get(k);
@@ -121,7 +122,8 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		    	//System.out.println("change fitness ");
 		    }
 		    else{
-		    Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
+		    	Q=ql.UpdateQTable(Q,0,  fitness[k], newFitness,k);
+		    //Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
 		    }
 		    }
 		    
@@ -160,19 +162,8 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 	public void arrayToList(double[][] tabSolutions,CSSolutionSet sol){
 		System.out.println("num var "+tabSolutions[0].length);
 		for(int i=0;i<tabSolutions.length;i++){
-			//System.out.println("ligne ++:"+sol.getSolutions().get(0).getVars().size());
 			for(int j=0;j<tabSolutions[i].length;j++){
-			//ArrayList<Double> vars = solutions.getSolutions().get(i).getVars();
-			//System.out.println("length "+vars.size());
-			//sol.getSolutions().get(i).getVars().set(0, 0.3);
-			//ArrayList<Double> solu=solutions.getSolutions().get(i).getVars();
-			///solu.set(0, 0.33);
-			//solu.set(0, 6.3);
-			//System.out.println(solu.toString());
 			
-			
-			
-			//solutions.getSol(i).s
 			solutions.getSolutions().get(i).getVars().set(j, tabSolutions[i][j]);
 			}
 			

@@ -9,12 +9,12 @@ import cmaes2.CMAEvolutionStrategy;
 
 
 public class CMAES {
-	CMAEvolutionStrategy cma;
-	double[] fitness;
-	double[] fitnessOld;
-	IObjectiveFunction fitfun;
-	double[][] newPopulation;
-	QLearning ql;
+	protected CMAEvolutionStrategy cma;
+	protected double[] fitness;
+	protected double[] fitnessOld;
+	protected IObjectiveFunction fitfun;
+	protected double[][] newPopulation;
+	protected QLearning ql;
 	
 	//init
 	public CMAES(int taillePop,int nombreVariable, IObjectiveFunction calculfitness, QLearning ql){
