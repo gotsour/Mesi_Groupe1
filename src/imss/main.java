@@ -14,21 +14,34 @@ import cs.problem.SphereProb;
 public class main {
 	public static void main(String[] args) {
 		
-		
+		int nombreVariable = 0;
+		int taillePopulation = 0;
+		int nombreOptimisation = 0;
+		int borneSup = 0;
+		int borneInf = 0;
 		OptimizationProblem problemeCS=new RosenbrockMinProb();
 		IObjectiveFunction problemeCMAES=new Rosenbrock();
 		
 		Scanner sc = new Scanner(System.in);
-	
-		sc = new Scanner(System.in);
-		System.out.println("Veuillez saisir le nombre de variables : ");
-		int nombreVariable = sc.nextInt();
+		System.out.println("répondre aux questions suivantes pour choisir le problème et les differents paramètres si vous tapez 0 la valeur sera celle par défaut");
+		System.out.println("Veuillez saisir le nombre de variables (defaut : 15): ");
+		
+		nombreVariable=sc.nextInt();
+		if(nombreVariable == 0){
+			nombreVariable =15;
+		}
 
-		System.out.println("Veuillez saisir la taille de la population : ");
-		int taillePopulation = sc.nextInt();
+		System.out.println("Veuillez saisir la taille de la population (defaut : 50): ");
+		taillePopulation = sc.nextInt();
+		if( taillePopulation == 0){
+			taillePopulation = 50;
+		}
 
-		System.out.println("Veuillez saisir le nombre d'optimisations : ");
-		int nombreOptimisation = sc.nextInt();
+		System.out.println("Veuillez saisir le nombre d'optimisations (defaut : 100000): ");
+		nombreOptimisation = sc.nextInt();
+		if(nombreOptimisation == 0){
+			nombreOptimisation = 100000;
+		}		
 		
 		System.out.println("Veuillez saisir un probleme : \n 1 - RosenBrock \n 2 - Rastrigin \n 3 - Sphere");
 		int str = sc.nextInt();
@@ -48,11 +61,18 @@ public class main {
 			}
 		}
 		
-		System.out.println("borne suppérieur du rang");
-		int borneSup = sc.nextInt();
+		System.out.println("borne suppérieur du rang (defaut : 100):");
+		borneSup = sc.nextInt();
+		if(borneSup == 0){
+			borneSup = 100;
+		}
 		
-		System.out.println("borne inférieur du rang");
-		int borneInf = sc.nextInt();
+		
+		System.out.println("borne inférieur du rang (defaut : -100):");
+		borneInf = sc.nextInt();
+		if(borneInf == 0){
+			borneInf = -100;
+		}
 			
 		
 		IMSS test= new IMSS(nombreVariable,taillePopulation,nombreOptimisation,problemeCMAES,problemeCS);

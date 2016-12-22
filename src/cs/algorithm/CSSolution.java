@@ -26,12 +26,7 @@ public class CSSolution extends Solution {
     public double getIndice(int i){
     	return this.vars.get(i);
     }
-    
-    /**
-     * Returns a *new* solution that is a random walk away from the current solution.
-     * Pass in distribution as "weibull" for an appropriate weibull distribution.
-     * EQUATION #1
-     */
+
     
     public CSSolution randomWalk (OptimizationProblem prob, String distribution) {
     	int n = prob.getNumVar();
@@ -72,50 +67,6 @@ public class CSSolution extends Solution {
     	return newSol;
     }
     
-    
-    
- /*public CSSolution randomWalk (OptimizationProblem prob, String distribution) {
-        
-    	int n = prob.getNumVar();
-    	// creates a neighborhood of size 1 times the scaling factor
-    	double distanceSquared = Math.pow(rand.nextDouble() * prob.getScalingFactor(),2);
-    	// creates an ArrayList from 0 to n-1 (for indexing purposes only)
-    	ArrayList<Integer> varIndices = new ArrayList<Integer>(n);
-    	for (int i = 0; i < n; i++) {
-    		varIndices.add(i, i);
-    	}
-    	
-    	ArrayList<Double> vars = this.getVars();
-    	CSSolution newSol = new CSSolution(this.numVars);
-    	newSol.initializeWithNull();
-    	ArrayList<Double> newVars = newSol.getVars();
-    	for (int i = 0; i < n; i++) {
-    
-    		int index = rand.nextInt(varIndices.size());
-    		// Finds the variable value that this index corresponds to.
-    		int varIndex = varIndices.get(index);
-    		double curVar = vars.get(varIndex);
-    		
-    		// use correct distribution to generate random double [0,1)
-    		double r;
-            if (distribution == "weibull")
-                r = weibull.random(1.5, 1, new uniform());
-            else
-                r = rand.nextDouble();
-    		// alters this variable coefficient by adding a random step between (-distance,distance)
-    		double distance = Math.sqrt(distanceSquared);
-    		double varStep = r*distance*2-distance;
-    		double newVar = curVar + varStep;
-    		newVars.set(varIndex, newVar);
-    		// removes the variable that has already been visited
-    		varIndices.remove(index);
-    		// updates distance for next for loop
-    		distanceSquared -= Math.pow(varStep, 2);
-    	}
-    	
-    	return newSol;
-    }*/
-    
     public double heavisideFunction(double x){
     	if(x<0){
     		return 0;
@@ -128,52 +79,7 @@ public class CSSolution extends Solution {
     	}
     		
     }
-    
-    
-    public CSSolution randomWalk5 (OptimizationProblem prob, double pa, ArrayList<CSSolution> sol) {
-        
-    	int n = prob.getNumVar();
-    	// creates a neighborhood of size 1 times the scaling factor
-    	double distanceSquared = Math.pow(rand.nextDouble() * prob.getScalingFactor(),2);
-    	// creates an ArrayList from 0 to n-1 (for indexing purposes only)
-    	ArrayList<Integer> varIndices = new ArrayList<Integer>(n);
-    	for (int i = 0; i < n; i++) {
-    		varIndices.add(i, i);
-    	}
-    	
-    	ArrayList<Double> vars = this.getVars();
-    	CSSolution newSol = new CSSolution(this.numVars);
-    	newSol.initializeWithNull();
-    	ArrayList<Double> newVars = newSol.getVars();
-    	for (int i = 0; i < n; i++) {
-    		
-    		
-    		
-    		int index1=rand.nextInt(sol.size());
-    		ArrayList<Double> lisVars1= sol.get(index1).getVars();
-    		int index2=rand.nextInt(lisVars1.size()-1);
-    		double curVar1 = lisVars1.get(index2);
-    		//retire pour pas retomber dessus
-    		//varIndices.remove(index1);
-    		
-    		int index3=rand.nextInt(sol.size());
-    		lisVars1= sol.get(index3).getVars();
-    		int index4=rand.nextInt(lisVars1.size()-1);
-    
-    		double curVar2 = lisVars1.get(index4);
-    		
-    		double r=rand.nextGaussian();
-    		double e=rand.nextGaussian();
-          
-    		
-    		double newVar = vars.get(i) + r*heavisideFunction(pa-e)*(curVar1-curVar2);
-    		
-    		newVars.set(i, newVar);
-    		
-    	}
-    	
-    	return newSol;
-    }
+
 
     
     public CSSolution randomWalk5 (OptimizationProblem prob, double pa) {
