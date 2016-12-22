@@ -50,7 +50,13 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		fitness=oldfitness;
 		population=oldpopulation;
 		//ajoute nouvelle population
-		arrayToList(oldpopulation,solutions);
+		//arrayToList(oldpopulation,solutions);
+		
+		//solutions.sortByFitness(optProb);
+		//for(int i=0; i<solutions.getSolutions().size();i++){
+		//	solutions.getSolutions().get(i).setOldIndice(i);
+		//	solutions.getSolutions().get(i).getOldIndice();
+		//}
 		
 		int tries;
 		double newFitness=0;	
@@ -77,9 +83,12 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
     		    
     		    //while tant qu'on ne respecte pas les contraintes
 			} while(!optProb.withinConstraints(newSol));
+			
 			newFitness=optProb.fitness(newSol);
 			//System.out.println("new fitness "+newFitness+" old fitness "+fitness[k] );//+" population : "+this.population[k][0]+" "+this.population[k][1]+" "+this.population[k][2] );
-		    if ( newFitness < fitness[k]) {
+			//System.out.println("old fitness : "+fitness[k]+" new fitness :"+newFitness);
+			if ( newFitness < fitness[k]) {
+		    	
 		    	solutions.replace(k, newSol);
 		    	solutions.getSol(k).evalFitness(optProb);;
 		    	Q=ql.UpdateQTable(Q,0,  fitness[k], newFitness,k);
@@ -94,8 +103,8 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		    
 		    i = solutions.getSolutions().get(k);
 		    //second test
-		    //System.out.println("seconde partie de test");
-		    if(Math.random()>ABANDON_PROBABILITY){
+		  
+		  /*  if(Math.random()>ABANDON_PROBABILITY){
 			tries = 0;
 			do {
 				if (tries > MAX_RANDOM_ATTEMPTS) {
@@ -125,7 +134,7 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 		    	Q=ql.UpdateQTable(Q,0,  fitness[k], newFitness,k);
 		    //Q=ql.UpdateQTable(Q,0,  fitness[k], fitness[k],k);
 		    }
-		    }
+		    }*/
 		    
 		}
 		
@@ -146,7 +155,7 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 			return tabSolutions;
 		}
 	
-	public double[][] listToArray(){
+	/*public double[][] listToArray(){
 		 ArrayList<CSSolution> listeSolutions=solutions.getSolutions();
 		 double[][] tabSolutions=new double[listeSolutions.size()][numVar];
 		 
@@ -157,13 +166,11 @@ public class CuckooSearchOpt extends OptimizationAlgorithm {
 				}
 			}
 			return tabSolutions;
-		}
+		}*/
 	
 	public void arrayToList(double[][] tabSolutions,CSSolutionSet sol){
-		System.out.println("num var "+tabSolutions[0].length);
 		for(int i=0;i<tabSolutions.length;i++){
 			for(int j=0;j<tabSolutions[i].length;j++){
-			
 			solutions.getSolutions().get(i).getVars().set(j, tabSolutions[i][j]);
 			}
 			

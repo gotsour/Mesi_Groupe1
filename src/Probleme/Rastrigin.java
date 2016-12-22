@@ -14,10 +14,10 @@ public class Rastrigin implements IObjectiveFunction {
 	public double valueOf(double[] x) {
 		double sum = A*x.length;
 		
-		for (int i = 0; i < x.length-1; ++i) {
+		for (int i = 0; i < x.length; ++i) {
 			sum += Math.pow(x[i], 2) - A * Math.cos(2 * Math.PI * x[i]);
 		}
-		return sum;
+		return sum-330;
 	}
 
 	@Override

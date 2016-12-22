@@ -9,6 +9,7 @@ public class Solution {
     
     protected ArrayList<Double> vars;
     protected int numVars;
+    protected int oldIndice;
     
     /**
      * Invariant: fitness must be updated to null whenever the solution is
@@ -23,6 +24,7 @@ public class Solution {
      * coefficients.
      */
     public Solution(ArrayList<Double> vars) {
+    	oldIndice=0;
         this.vars = new ArrayList<Double>(vars);
         this.numVars = vars.size();
         
@@ -68,7 +70,10 @@ public class Solution {
         }
     }
     
-    /**
+    
+
+
+	/**
      * Sets solution with random variable values, ensuring constraints for
      * the optimization problem are met.
      */
@@ -109,4 +114,14 @@ public class Solution {
 	public void print() {
         System.out.println(this.toString());
     }
+
+	public int getOldIndice() {
+		// TODO Auto-generated method stub
+		return oldIndice;
+	}
+
+	public void setOldIndice(int val) {
+		oldIndice=val;
+		
+	}
 }

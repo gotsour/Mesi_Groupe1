@@ -213,5 +213,13 @@ public class CSSolution extends Solution {
     	
     	return newSol;
     }
+	public int getOldIndice() {
+		return super.getOldIndice();
+		
+	}
+	public void setOldIndice(int val) {
+		 super.setOldIndice(val);
+		
+	}
 
 }

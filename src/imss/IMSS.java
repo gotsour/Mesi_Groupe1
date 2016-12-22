@@ -63,6 +63,7 @@ public class IMSS {
 	
 	
 	public void solve() {
+		affichePop();
 		for (int t = 0; t < nombreOptimisation; t++) {
 			if(SEcmaes>SEcs){
 				//traitement cmaes
@@ -77,6 +78,7 @@ public class IMSS {
 			}
 			else{
 				//traitement cs 
+			
 				QTable=cs.solve(population,fitness, QTable);
 				population=cs.getPopulation();
 				fitness=cs.getFitness();
@@ -93,7 +95,7 @@ public class IMSS {
 			for(int j=0;j<population[i].length;j++){
 				System.out.print(population[i][j]+" ");
 			}
-			System.out.println();
+			System.out.println("################");
 		}
 	}
 	

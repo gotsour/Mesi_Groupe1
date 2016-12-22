@@ -14,10 +14,12 @@ public class QLearning {
 		double rtplus = Math.abs(ftplus - ft);
 		//ftplus = rtplus;
 				
-		if ( ftplus > ft ) {
+		if ( ftplus < ft ) {
 			Q[i][solver] = Q[i][solver] + ro * (rtplus + (gamma*rtplus) - Q[i][solver]);
+			
 		} else {
 			Q[i][solver] = Q[i][solver] + ro * (-rtplus - (gamma*rtplus) - Q[i][solver]);
+			
 		}
 		return Q;
 	}
